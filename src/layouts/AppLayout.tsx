@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useTheme } from "@/hooks/useTheme"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import logo from "@/assets/logo.webp"
 
 const navItems = [
   { to: "/",            label: "Overview",      icon: Activity },
@@ -24,9 +25,11 @@ export default function AppLayout() {
       )}>
         {/* Logo */}
         <div className="flex items-center gap-3 px-4 py-5 border-b min-h-[64px]">
-          <div className="flex-shrink-0 w-7 h-7 rounded-md bg-primary flex items-center justify-center">
-            <FlaskConical size={15} className="text-primary-foreground" />
-          </div>
+          <img
+            src={logo}
+            alt="CSIR Logo"
+            className="flex-shrink-0 w-7 h-7 object-contain"
+          />
           {sidebarOpen && (
             <span className="font-bold text-sm leading-tight text-foreground">
               CSIR Disease<br />Dashboard
