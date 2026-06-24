@@ -2,9 +2,8 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Search, ShieldAlert, HeartPulse } from "lucide-react"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { DISEASES, getDiseasesByType } from "@/data/diseases"
+import { getDiseasesByType } from "@/data/diseases"
 import { useDiseaseType } from "@/context/DiseaseTypeContext"
-import { cn } from "@/lib/utils"
 
 export function GlobalSearch() {
   const [open, setOpen] = useState(false)
