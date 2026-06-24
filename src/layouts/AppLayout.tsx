@@ -130,10 +130,10 @@ export default function AppLayout() {
                 <TooltipTrigger asChild>
                   <NavLink
                     to="/"
-                    className={({ isActive }) => cn(
+                    className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
-                      isActive
-                        ? "bg-blue-600 text-white font-medium"
+                      location.pathname === "/"
+                        ? "bg-blue-600 text-white font-medium shadow-sm"
                         : "text-slate-400 hover:text-white hover:bg-slate-800/50"
                     )}
                   >
