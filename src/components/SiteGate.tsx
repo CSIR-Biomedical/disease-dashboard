@@ -30,8 +30,8 @@ export function SiteGate({ onUnlock }: SiteGateProps) {
         <div className="flex flex-col items-center mb-8 gap-4">
           <img src={logo} alt="CSIR Logo" className="w-20 h-20 object-contain" />
           <div className="text-center">
-            <h1 className="text-lg font-bold text-foreground">CSIR Disease Dashboard</h1>
-            <p className="text-xs text-muted-foreground mt-1">
+            <h1 className="text-lg font-bold text-foreground leading-tight">CSIR - Health Research and Innovation Center</h1>
+            <p className="text-[11px] text-muted-foreground mt-1.5">
               Council for Scientific and Industrial Research · Ghana
             </p>
           </div>

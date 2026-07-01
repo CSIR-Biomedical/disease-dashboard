@@ -1,7 +1,7 @@
 import { NavLink, Outlet, useLocation, useNavigate, useSearchParams } from "react-router-dom"
 import {
   LayoutDashboard, Sun, Moon, ChevronLeft, ChevronRight,
-  ShieldAlert, HeartPulse, ChevronDown, Info
+  ShieldAlert, HeartPulse, ChevronDown, Info, Users
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { useTheme } from "@/hooks/useTheme"
@@ -53,18 +53,26 @@ export default function AppLayout() {
   const activeDiseaseId = searchParams.get("id")
 
   // Breadcrumbs title and page path
-  let activeTitle = "CSIR Disease Intelligence"
+  let activeTitle = "CSIR - Health Research and Innovation Center"
   let sectionLabel = "Tracking"
   let pageLabel = "Overview"
 
   if (location.pathname === "/") {
-    activeTitle = "CSIR Disease Dashboard"
+    activeTitle = "CSIR - Health Research and Innovation Center"
     sectionLabel = "Main"
     pageLabel = "Dashboard"
   } else if (location.pathname === "/demographics") {
     activeTitle = "Population Health Demographics"
     sectionLabel = "MAIN"
     pageLabel = "Population Health"
+  } else if (location.pathname === "/researchers") {
+    activeTitle = "Health Research and Innovation Center Research Team"
+    sectionLabel = "MAIN"
+    pageLabel = "Researchers"
+  } else if (location.pathname === "/researcher") {
+    activeTitle = "Researcher Profile"
+    sectionLabel = "MAIN"
+    pageLabel = "Profile"
   } else if (location.pathname === "/disease") {
     const currentDisease = DISEASES.find(d => d.id === activeDiseaseId) || communicableDiseases[0]
     activeTitle = currentDisease ? `${currentDisease.name} Tracking` : "Disease Tracking"
@@ -89,9 +97,9 @@ export default function AppLayout() {
             <div className="flex items-center gap-3 min-w-0">
               <img src={logoImg} alt="CSIR Logo" className="w-8 h-8 object-contain flex-shrink-0" />
               {sidebarOpen && (
-                <div className="leading-tight flex flex-col">
-                  <span className="font-bold text-sm text-white tracking-wide">CSIR</span>
-                  <span className="text-xs text-slate-400">Health Tracker</span>
+                <div className="leading-tight flex flex-col max-w-[170px]">
+                  <span className="font-bold text-sm text-white tracking-wide leading-none">CSIR</span>
+                  <span className="text-[10px] text-slate-400 mt-1 leading-snug">Health Research and Innovation Center</span>
                 </div>
               )}
             </div>
@@ -142,6 +150,25 @@ export default function AppLayout() {
                   </NavLink>
                 </TooltipTrigger>
                 {!sidebarOpen && <TooltipContent side="right">Dashboard</TooltipContent>}
+              </Tooltip>
+
+              {/* Researchers */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <NavLink
+                    to="/researchers"
+                    className={cn(
+                      "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
+                      location.pathname === "/researchers" || location.pathname === "/researcher"
+                        ? "bg-blue-600 text-white font-medium shadow-sm"
+                        : "text-slate-400 hover:text-white hover:bg-slate-800/50"
+                    )}
+                  >
+                    <Users size={18} className="flex-shrink-0" />
+                    {sidebarOpen && <span>Researchers</span>}
+                  </NavLink>
+                </TooltipTrigger>
+                {!sidebarOpen && <TooltipContent side="right">Researchers</TooltipContent>}
               </Tooltip>
 
               {/* Communicable Diseases Accordion */}
@@ -301,7 +328,7 @@ export default function AppLayout() {
                   </span>
                 </TooltipTrigger>
                 <TooltipContent side="bottom" className="max-w-[220px] text-center bg-slate-900 text-white">
-                  Synthetic preview data modeled for CSIR Health Tracker.
+                  Synthetic preview data modeled for CSIR - Health Research and Innovation Center.
                 </TooltipContent>
               </Tooltip>
 

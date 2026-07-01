@@ -21,6 +21,8 @@ import { MosquitoIcon } from "@/layouts/AppLayout"
 import { cn } from "@/lib/utils"
 import { getAgeDistribution, getSexBreakdown, getRiskGroups } from "@/data/demographics"
 import { getRelatedPapers } from "@/data/papers"
+import { DataTable } from "@/components/ui/data-table"
+import { ColumnDef } from "@tanstack/react-table"
 
 // Color Palette for Pie Chart
 const GENDER_COLORS = ["#3b82f6", "#ec4899"] // Male (Blue), Female (Pink)
@@ -67,6 +69,66 @@ export default function DiseaseDetail() {
       scalingFactor *= 0.15 // Scale down for district-level view
     }
   }
+    const fakeOutbreaks = [
+    { id: `OB-${disease.id.substring(0,3).toUpperCase()}-01`, location: "Asante Akim North", startDate: "2024-03-12", cases: 142, status: "Active", risk: "High" },
+    { id: `OB-${disease.id.substring(0,3).toUpperCase()}-02`, location: "Cape Coast", startDate: "2024-05-01", cases: 38, status: "Contained", risk: "Medium" },
+    { id: `OB-${disease.id.substring(0,3).toUpperCase()}-03`, location: "Tamale Metro", startDate: "2023-11-20", cases: 215, status: "Resolved", risk: "Low" },
+  ]
+  const filteredOutbreaks = (district && district !== "All Districts") 
+    ? fakeOutbreaks.filter(o => o.location === district)
+    : fakeOutbreaks
+
+  type Outbreak = typeof fakeOutbreaks[0]
+  
+  const outbreakColumns: ColumnDef<Outbreak>[] = [
+    {
+      accessorKey: "id",
+      header: "Outbreak ID",
+      cell: ({ row }) => <div className="font-bold text-slate-950 dark:text-white">{row.getValue("id")}</div>
+    },
+    {
+      accessorKey: "location",
+      header: "Location",
+    },
+    {
+      accessorKey: "startDate",
+      header: "Start Date",
+    },
+    {
+      accessorKey: "cases",
+      header: "Cases",
+      cell: ({ row }) => <div className="font-bold">{(row.getValue("cases") as number).toLocaleString()}</div>
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => (
+        <span className="flex items-center gap-1">
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+          {row.getValue("status")}
+        </span>
+      )
+    },
+    {
+      accessorKey: "risk",
+      header: () => <div className="text-right">Risk Level</div>,
+      cell: ({ row }) => {
+        const risk = row.getValue("risk") as string
+        return (
+          <div className="text-right">
+            <span className={cn(
+              "text-[10px] font-bold px-2 py-0.5 rounded-full",
+              risk === "High" ? "bg-red-50 text-red-600 dark:bg-red-950/25 dark:text-red-400" :
+              risk === "Medium" ? "bg-orange-50 text-orange-600 dark:bg-orange-950/25 dark:text-orange-400" :
+              "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/25 dark:text-emerald-400"
+            )}>
+              {risk}
+            </span>
+          </div>
+        )
+      }
+    }
+  ]
 
   // Adjust YTD values based on scaling factor
   const totalCasesYTD = Math.max(1, Math.round(disease.totalCasesYTD * scalingFactor))
@@ -78,13 +140,6 @@ export default function DiseaseDetail() {
   const cfrVal = totalCasesYTD > 0 ? (deathsYTD / totalCasesYTD) * 100 : disease.cfr
   const cfrFormatted = cfrVal.toFixed(2)
   const incidenceRate = (disease.incidenceRate * scalingFactor * 10).toFixed(1)
-
-  // Filter Outbreaks Table
-  const filteredOutbreaks = disease.outbreaks.filter(o => {
-    if (region === "All Regions") return true
-    // Match location or show a subset
-    return o.location.toLowerCase().includes(region.toLowerCase().split(" ")[0]) || Math.random() > 0.4
-  })
 
   // Format numbers nicely
   const formattedCases = totalCasesYTD.toLocaleString()
@@ -439,53 +494,8 @@ export default function DiseaseDetail() {
               </CardTitle>
             </CardHeader>
             <CardContent className="flex-1 flex flex-col justify-between">
-              <div className="overflow-x-auto">
-                <table className="w-full text-xs">
-                  <thead>
-                    <tr className="border-b text-slate-400 dark:border-slate-800 text-left font-semibold">
-                      <th className="py-2 px-1">Outbreak ID</th>
-                      <th className="py-2 px-1">Location</th>
-                      <th className="py-2 px-1">Start Date</th>
-                      <th className="py-2 px-1">Cases</th>
-                      <th className="py-2 px-1">Status</th>
-                      <th className="py-2 px-1 text-right">Risk Level</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                    {filteredOutbreaks.length > 0 ? (
-                      filteredOutbreaks.map((ob, i) => (
-                        <tr key={i} className="text-slate-600 dark:text-slate-300 font-medium">
-                          <td className="py-2.5 px-1 font-bold text-slate-950 dark:text-white">{ob.id}</td>
-                          <td className="py-2.5 px-1">{ob.location}</td>
-                          <td className="py-2.5 px-1">{ob.startDate}</td>
-                          <td className="py-2.5 px-1 font-bold">{ob.cases.toLocaleString()}</td>
-                          <td className="py-2.5 px-1">
-                            <span className="flex items-center gap-1">
-                              <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                              {ob.status}
-                            </span>
-                          </td>
-                          <td className="py-2.5 px-1 text-right">
-                            <span className={cn(
-                              "text-[10px] font-bold px-2 py-0.5 rounded-full",
-                              ob.risk === "High" ? "bg-red-50 text-red-600 dark:bg-red-950/25 dark:text-red-400" :
-                              ob.risk === "Medium" ? "bg-orange-50 text-orange-600 dark:bg-orange-950/25 dark:text-orange-400" :
-                              "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/25 dark:text-emerald-400"
-                            )}>
-                              {ob.risk}
-                            </span>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan={6} className="py-6 text-center text-slate-400">
-                          No active outbreaks detected in selected filters.
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
+              <div className="mt-2">
+                <DataTable columns={outbreakColumns} data={filteredOutbreaks} searchKey="location" />
               </div>
 
               <div className="pt-3 text-center border-t border-slate-100 dark:border-slate-800 mt-2">
@@ -797,11 +807,17 @@ export default function DiseaseDetail() {
             <CardContent>
               <div className="space-y-4 pt-2">
                 {getRelatedPapers(disease.name).map((paper, i) => (
-                  <div key={i} className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                    <div className="flex justify-between items-start mb-1.5">
-                      <h4 className="text-sm font-bold text-blue-600 dark:text-blue-400 leading-tight">{paper.title}</h4>
+                  <a
+                    key={i}
+                    href={paper.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-shadow cursor-pointer text-left"
+                  >
+                    <div className="flex justify-between items-start mb-1.5 gap-4">
+                      <h4 className="text-sm font-bold text-blue-600 dark:text-blue-400 leading-tight hover:underline">{paper.title}</h4>
                       <span className={cn(
-                        "text-[10px] font-bold px-2 py-0.5 rounded",
+                        "text-[10px] font-bold px-2 py-0.5 rounded flex-shrink-0",
                         paper.badgeColor === "indigo" ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950/30 dark:text-indigo-400" :
                         paper.badgeColor === "emerald" ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400" :
                         paper.badgeColor === "amber" ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400" :
@@ -812,7 +828,7 @@ export default function DiseaseDetail() {
                     <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                       {paper.description}
                     </p>
-                  </div>
+                  </a>
                 ))}
               </div>
             </CardContent>

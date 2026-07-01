@@ -1,4 +1,4 @@
-import { Activity, Skull, HeartPulse, TrendingUp, ChevronRight } from "lucide-react"
+import { Activity, Skull, HeartPulse, TrendingUp, ChevronRight, ArrowUpDown } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import {
   ComposedChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip,
@@ -6,9 +6,12 @@ import {
 } from "recharts"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { StatCard } from "@/components/StatCard"
 import { GeoMap } from "@/components/GeoMap"
-import { getDiseasesByType } from "@/data/diseases"
+import { DataTable } from "@/components/ui/data-table"
+import { ColumnDef } from "@tanstack/react-table"
+import { getDiseasesByType, Disease } from "@/data/diseases"
 import { getOverallTrends, computeOutcomes } from "@/data/trends"
 import { getRegionalData } from "@/data/geography"
 import { useDiseaseType } from "@/context/DiseaseTypeContext"
@@ -19,6 +22,70 @@ export default function Overview() {
   const { diseaseType } = useDiseaseType()
   const { region, setRegion, district, setDistrict, timePeriod, setTimePeriod } = useFilters()
   const diseases = getDiseasesByType(diseaseType)
+
+  const diseaseColumns: ColumnDef<Disease>[] = [
+    {
+      accessorKey: "name",
+      header: ({ column }) => (
+        <Button variant="ghost" className="-ml-4" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          Disease
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      ),
+      cell: ({ row }) => (
+        <div className="font-medium text-foreground flex items-center gap-2">
+          <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: row.original.color }} />
+          {row.original.name}
+        </div>
+      )
+    },
+    {
+      accessorKey: "category",
+      header: "Category",
+      cell: ({ row }) => <div className="text-muted-foreground">{row.getValue("category")}</div>,
+    },
+    {
+      accessorKey: "pathogen",
+      header: "Pathogen / Mechanism",
+      cell: ({ row }) => <div className="text-muted-foreground italic text-xs">{row.getValue("pathogen")}</div>,
+    },
+    {
+      accessorKey: "id",
+      header: "Cases",
+      cell: ({ row }) => {
+        const id = row.getValue("id") as string
+        const cases = 3000 + (id.charCodeAt(0) * 419 % 9000)
+        return <div className="font-medium">{cases.toLocaleString()}</div>
+      }
+    },
+    {
+      accessorKey: "cfr",
+      header: "CFR",
+      cell: ({ row }) => {
+        const cfr = parseFloat(row.getValue("cfr"))
+        return <div>{cfr.toFixed(1)}%</div>
+      }
+    },
+    {
+      accessorKey: "alertStatus",
+      header: "Status",
+      cell: ({ row }) => {
+        const status = row.getValue("alertStatus") as string
+        const badgeVariant = status === "High Alert" ? "destructive"
+          : status === "Active" ? "default" : "secondary"
+        return <Badge variant={badgeVariant}>{status}</Badge>
+      }
+    },
+    {
+      id: "actions",
+      cell: () => (
+        <div className="text-muted-foreground group-hover:text-foreground transition-colors text-right">
+          <ChevronRight size={15} className="ml-auto" />
+        </div>
+      )
+    }
+  ]
+
 
   // TODO: replace with useEffect + useState when swapping to Supabase async queries
   const trends  = getOverallTrends()
@@ -152,48 +219,13 @@ export default function Overview() {
           <CardTitle className="text-base">Disease Summary</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b">
-                  {["Disease","Category","Pathogen / Mechanism","Cases","CFR","Status",""].map(h => (
-                    <th key={h} className="text-left py-2 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide">{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {diseases.map((d) => {
-                  const cases = 3000 + (d.id.charCodeAt(0) * 419 % 9000)
-                  const badgeVariant = d.alertStatus === "High Alert" ? "destructive"
-                    : d.alertStatus === "Active" ? "default" : "secondary"
-                  return (
-                    <tr
-                      key={d.id}
-                      onClick={() => navigate(`/disease?id=${d.id}`)}
-                      className="border-b last:border-0 hover:bg-muted/50 cursor-pointer transition-colors group"
-                    >
-                      <td className="py-2.5 px-3 font-medium text-foreground">
-                        <span className="flex items-center gap-2">
-                          <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: d.color }} />
-                          {d.name}
-                        </span>
-                      </td>
-                      <td className="py-2.5 px-3 text-muted-foreground">{d.category}</td>
-                      <td className="py-2.5 px-3 text-muted-foreground italic text-xs">{d.pathogen}</td>
-                      <td className="py-2.5 px-3 font-medium">{cases.toLocaleString()}</td>
-                      <td className="py-2.5 px-3">{d.cfr.toFixed(1)}%</td>
-                      <td className="py-2.5 px-3">
-                        <Badge variant={badgeVariant}>{d.alertStatus}</Badge>
-                      </td>
-                      {/* Row affordance — chevron (fixes OV-3) */}
-                      <td className="py-2.5 px-2 text-muted-foreground group-hover:text-foreground transition-colors">
-                        <ChevronRight size={15} />
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
+          <div className="mt-2">
+            <DataTable 
+              columns={diseaseColumns} 
+              data={diseases} 
+              onRowClick={(row) => navigate(`/disease?id=${row.id}`)} 
+              searchKey="name"
+            />
           </div>
         </CardContent>
       </Card>
