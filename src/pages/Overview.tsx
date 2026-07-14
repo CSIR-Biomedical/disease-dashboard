@@ -150,7 +150,7 @@ export default function Overview() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard title="Total Cases"  value={totalCases}     sub="All diseases combined" icon={Activity}   trend={8}  iconColor="bg-blue-500" />
         <StatCard title="Active Cases" value={activeCases}    sub="Currently under care"  icon={TrendingUp}  trend={12} iconColor="bg-orange-500" />
         <StatCard title="Recovered"    value={totalRecovered} sub="Successfully treated"  icon={HeartPulse}  trend={-4} trendPositiveIsGood iconColor="bg-green-500" />
@@ -223,7 +223,7 @@ export default function Overview() {
             <DataTable 
               columns={diseaseColumns} 
               data={diseases} 
-              onRowClick={(row) => navigate(`/disease?id=${row.id}`)} 
+              onRowClick={(row) => navigate(`/dashboard/disease?id=${row.id}`)} 
               searchKey="name"
             />
           </div>

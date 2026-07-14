@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams, Link } from "react-router-dom"
 import {
   ComposedChart, Line, BarChart, Bar, XAxis, YAxis,
   CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell, Area, AreaChart
@@ -267,7 +267,7 @@ export default function DiseaseDetail() {
           </div>
 
           {/* Filter Dropdowns */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <select
               value={region}
               onChange={e => setRegion(e.target.value)}
@@ -313,7 +313,7 @@ export default function DiseaseDetail() {
 
       {/* ── Tabs Implementation ────────────────────────────────────────── */}
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="w-full justify-center overflow-x-auto flex-nowrap rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1 mb-6">
+        <TabsList className="w-full justify-start overflow-x-auto flex-nowrap rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1 mb-6">
           <TabsTrigger value="overview" className="rounded-md">Overview</TabsTrigger>
           <TabsTrigger value="outbreaks" className="rounded-md">Outbreaks</TabsTrigger>
           <TabsTrigger value="geography" className="rounded-md">Geography</TabsTrigger>
@@ -560,7 +560,7 @@ export default function DiseaseDetail() {
                 Demographics
               </CardTitle>
             </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+            <CardContent className="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-2">
               
               {/* Age Group progress list */}
               <div className="space-y-3">
@@ -638,7 +638,7 @@ export default function DiseaseDetail() {
                   {riskGroupData.map((d, i) => (
                     <div key={i} className="space-y-1">
                       <div className="flex justify-between text-[11px] font-medium text-slate-700 dark:text-slate-300">
-                        <span className="truncate max-w-[140px]">{d.group}</span>
+                        <span className="truncate min-w-0 flex-1 max-w-[40%] sm:max-w-[140px]">{d.group}</span>
                         <span className="text-slate-400">{d.count.toLocaleString()} ({d.pct})</span>
                       </div>
                       <div className="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
@@ -806,12 +806,10 @@ export default function DiseaseDetail() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4 pt-2">
-                {getRelatedPapers(disease.name).map((paper, i) => (
-                  <a
-                    key={i}
-                    href={paper.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                {getRelatedPapers(disease.name).map((paper) => (
+                  <Link
+                    key={paper.id}
+                    to={`/publication?id=${paper.id}`}
                     className="block p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-shadow cursor-pointer text-left"
                   >
                     <div className="flex justify-between items-start mb-1.5 gap-4">
@@ -828,7 +826,7 @@ export default function DiseaseDetail() {
                     <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                       {paper.description}
                     </p>
-                  </a>
+                  </Link>
                 ))}
               </div>
             </CardContent>

@@ -68,6 +68,9 @@ export function GeoMap({ diseaseId }: GeoMapProps) {
         .addTo(map)
     })
 
+    // Ensure tiles fill responsive container height
+    requestAnimationFrame(() => map.invalidateSize())
+
     return () => {
       map.remove()
       mapRef.current = null
@@ -77,7 +80,7 @@ export function GeoMap({ diseaseId }: GeoMapProps) {
   return (
     <div className="space-y-2">
       <p className="text-xs text-muted-foreground mb-2">Circle size = case count. Hover a marker for details.</p>
-      <div ref={containerRef} style={{ height: 300, width: "100%", borderRadius: 8 }} />
+      <div ref={containerRef} className="h-[240px] sm:h-[300px] md:h-[400px] w-full rounded-lg" />
       <div className="flex flex-wrap gap-3 pt-2">
         {Object.entries(RISK_COLORS).map(([level, color]) => (
           <span key={level} className="flex items-center gap-1 text-xs text-muted-foreground capitalize">

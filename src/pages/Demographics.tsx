@@ -93,14 +93,14 @@ export default function Demographics() {
               {riskData.map((r, i) => (
                 <div key={r.name} className="flex items-center gap-3 text-sm">
                   {/* Widened label column — no truncation, wrap if needed (fixes DM-1) */}
-                  <div className="w-44 flex-shrink-0 text-muted-foreground text-xs leading-tight">{r.name}</div>
-                  <div className="flex-1 h-5 bg-muted rounded overflow-hidden">
+                  <div className="min-w-0 w-[30%] max-w-[11rem] flex-shrink text-muted-foreground text-xs leading-tight">{r.name}</div>
+                  <div className="flex-1 min-w-0 h-5 bg-muted rounded overflow-hidden">
                     <div
                       className="h-full rounded flex items-center justify-end pr-1.5 text-white text-[10px] font-medium transition-all"
                       style={{ width: `${r.percentage}%`, backgroundColor: RISK_PALETTE[i % RISK_PALETTE.length] }}
                     >{r.percentage}%</div>
                   </div>
-                  <div className="w-16 text-right text-xs text-muted-foreground flex-shrink-0">{r.count.toLocaleString()}</div>
+                  <div className="w-12 sm:w-16 text-right text-xs text-muted-foreground flex-shrink-0">{r.count.toLocaleString()}</div>
                 </div>
               ))}
             </div>

@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/compone
 import { getDiseasesByType } from "@/data/diseases"
 import { useDiseaseType } from "@/context/DiseaseTypeContext"
 
-export function GlobalSearch() {
+export function GlobalSearch({ variant = "full" }: { variant?: "full" | "icon" }) {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState("")
   const navigate = useNavigate()
@@ -31,23 +31,34 @@ export function GlobalSearch() {
 
   const handleSelect = (disease: any) => {
     setDiseaseType(disease.diseaseType)
-    navigate(`/disease?id=${disease.id}`)
+    navigate(`/dashboard/disease?id=${disease.id}`)
     setOpen(false)
     setQuery("")
   }
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className="flex items-center gap-2 px-3 py-1.5 w-64 rounded-md border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 text-sm hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
-      >
-        <Search size={16} />
-        <span className="flex-1 text-left">Search diseases...</span>
-        <kbd className="hidden sm:inline-flex h-5 items-center gap-1 rounded border border-slate-300 dark:border-slate-700 bg-slate-200 dark:bg-slate-800 px-1.5 font-mono text-[10px] font-medium text-slate-500 dark:text-slate-400">
-          <span className="text-xs">⌘</span>K
-        </kbd>
-      </button>
+      {variant === "icon" ? (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label="Search diseases"
+          className="inline-flex items-center justify-center w-9 h-9 rounded-md text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 transition-colors"
+        >
+          <Search size={16} />
+        </button>
+      ) : (
+        <button
+          onClick={() => setOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 w-full max-w-xs lg:w-64 rounded-md border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 text-sm hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
+        >
+          <Search size={16} />
+          <span className="flex-1 text-left truncate">Search diseases...</span>
+          <kbd className="hidden sm:inline-flex h-5 items-center gap-1 rounded border border-slate-300 dark:border-slate-700 bg-slate-200 dark:bg-slate-800 px-1.5 font-mono text-[10px] font-medium text-slate-500 dark:text-slate-400">
+            <span className="text-xs">⌘</span>K
+          </kbd>
+        </button>
+      )}
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="p-0 overflow-hidden bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 shadow-2xl max-w-2xl gap-0">
