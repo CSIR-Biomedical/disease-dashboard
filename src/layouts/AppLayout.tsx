@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils"
 import { useDiseaseType } from "@/context/DiseaseTypeContext"
 import { DISEASES, getDiseasesByType } from "@/data/diseases"
 import { GlobalSearch } from "@/components/GlobalSearch"
+import ConstructionBanner from "@/components/ConstructionBanner"
 
 import logoImg from "@/assets/logo.webp"
 
@@ -312,6 +313,7 @@ export default function AppLayout() {
         </aside>
 
         <div className="flex-1 flex flex-col overflow-hidden min-w-0">
+          <ConstructionBanner />
           <header className="h-16 border-b bg-white dark:bg-slate-900 flex items-center justify-between px-3 sm:px-6 flex-shrink-0 gap-2 sm:gap-4">
             <div className="flex items-center gap-2 min-w-0 flex-1">
               <Button

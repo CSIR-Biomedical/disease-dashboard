@@ -8,7 +8,7 @@ export default function HeroSection() {
   const navigate = useNavigate()
 
   return (
-    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-[#1a153a]">
+    <section className="relative pt-40 pb-20 lg:pt-52 lg:pb-32 overflow-hidden bg-[#1a153a]">
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40 mix-blend-overlay"
         style={{ backgroundImage: `url(${heroImg})` }}
