@@ -2,20 +2,22 @@ import { Link } from "react-router-dom"
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-24 bg-white">
+    <section id="about" className="py-20 md:py-24 bg-white border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           <div className="lg:col-span-4">
-            <p className="text-sm font-bold tracking-widest text-primary uppercase mb-4">About the Center</p>
+            <p className="text-xs font-semibold tracking-[0.18em] uppercase text-slate-500 mb-4">
+              About the Center
+            </p>
             <h2 className="font-['Merriweather',serif] text-3xl md:text-4xl font-bold text-secondary leading-tight">
-              Science in service of public health
+              A national mandate for health research
             </h2>
-            <div className="w-16 h-1 bg-primary mt-6" />
+            <div className="w-16 h-0.5 bg-primary mt-6" />
           </div>
 
           <div className="lg:col-span-8 space-y-6">
             <p className="text-lg text-slate-600 leading-relaxed">
-              The CSIR Center for Health Research and Innovation advances evidence-based responses
+              The Center for Health Research and Innovation advances evidence-based responses
               to infectious and chronic disease across the region. Our teams combine laboratory
               science, epidemiology, and digital surveillance to strengthen national health systems.
             </p>
@@ -25,7 +27,7 @@ export default function AboutSection() {
               insight — so discoveries move from bench to population impact.
             </p>
 
-            <div className="grid sm:grid-cols-3 gap-6 pt-4 border-t border-slate-100">
+            <div className="grid sm:grid-cols-3 gap-8 pt-6 border-t border-slate-200">
               {[
                 { title: "Surveillance", body: "Real-time monitoring of disease patterns and outbreak risk." },
                 { title: "Discovery", body: "Laboratory and translational research across core health pillars." },
@@ -40,7 +42,7 @@ export default function AboutSection() {
 
             <Link
               to="/about"
-              className="inline-flex text-sm font-semibold text-primary hover:underline pt-2"
+              className="inline-flex text-sm font-semibold text-secondary underline-offset-4 hover:underline hover:text-primary pt-2"
             >
               Learn more about the Center
             </Link>

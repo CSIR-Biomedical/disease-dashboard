@@ -3,7 +3,7 @@ import logoImg from "@/assets/logo.webp"
 
 const QUICK_LINKS = [
   { label: "About the Center", to: "/about" },
-  { label: "Research Areas", to: "/#research" },
+  { label: "Research Areas", to: "/research" },
   { label: "Publications", to: "/publications" },
   { label: "Researcher Profiles", to: "/researchers" },
 ]

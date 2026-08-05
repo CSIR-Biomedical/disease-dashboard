@@ -8,14 +8,14 @@ const STATS = [
 export default function StatsStrip() {
   return (
     <section className="border-y border-slate-200 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x md:divide-slate-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-14">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-0 md:divide-x md:divide-slate-200">
           {STATS.map((stat) => (
             <div key={stat.label} className="text-center md:px-6">
               <div className="font-['Merriweather',serif] text-2xl md:text-3xl font-bold text-secondary">
                 {stat.value}
               </div>
-              <div className="mt-1.5 text-xs md:text-sm font-medium text-slate-500 tracking-wide">
+              <div className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                 {stat.label}
               </div>
             </div>

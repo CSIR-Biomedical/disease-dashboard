@@ -105,22 +105,24 @@ export default function Overview() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-foreground">
-            {isNCD ? "NCD Overview" : "Dashboard Overview"}
+          <p className="text-[10px] font-semibold tracking-[0.16em] uppercase text-slate-500 mb-2">
+            Surveillance
+          </p>
+          <h2 className="font-['Merriweather',serif] text-xl md:text-2xl font-bold text-secondary dark:text-white">
+            {isNCD ? "NCD overview" : "Dashboard overview"}
           </h2>
-          <p className="text-sm text-muted-foreground mt-0.5">
+          <p className="text-sm text-slate-500 mt-1">
             {subtitleDiseases} · {region} · {timePeriod}
           </p>
         </div>
 
-        {/* Filter Dropdowns */}
         <div className="flex items-center flex-wrap gap-2">
           <select
             value={region}
             onChange={e => setRegion(e.target.value)}
-            className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-medium cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 outline-none"
+            className="px-3 py-1.5 rounded-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-medium cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 outline-none"
           >
             {regionsList.map(r => (
               <option key={r} value={r}>{r}</option>
@@ -130,7 +132,7 @@ export default function Overview() {
           <select
             value={district}
             onChange={e => setDistrict(e.target.value)}
-            className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-medium cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 outline-none"
+            className="px-3 py-1.5 rounded-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-medium cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 outline-none"
           >
             {districtsList.map(d => (
               <option key={d} value={d}>{d}</option>
@@ -140,7 +142,7 @@ export default function Overview() {
           <select
             value={timePeriod}
             onChange={e => setTimePeriod(e.target.value)}
-            className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-medium cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 outline-none"
+            className="px-3 py-1.5 rounded-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-medium cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 outline-none"
           >
             {timePeriods.map(p => (
               <option key={p} value={p}>{p}</option>
@@ -149,7 +151,6 @@ export default function Overview() {
         </div>
       </div>
 
-      {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard title="Total Cases"  value={totalCases}     sub="All diseases combined" icon={Activity}   trend={8}  iconColor="bg-blue-500" />
         <StatCard title="Active Cases" value={activeCases}    sub="Currently under care"  icon={TrendingUp}  trend={12} iconColor="bg-orange-500" />
@@ -157,10 +158,11 @@ export default function Overview() {
         <StatCard title="Deaths"       value={totalDeaths}    sub="Case fatality rate"    icon={Skull}       trend={-2} iconColor="bg-red-600" />
       </div>
 
-      {/* Trend chart — full width with dual Y-axis so deaths are visible */}
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-base">Case Trends — 2025–2026</CardTitle>
+          <CardTitle className="font-['Merriweather',serif] text-base font-bold text-secondary dark:text-white">
+            Case trends — 2025–2026
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={280}>
@@ -177,13 +179,11 @@ export default function Overview() {
               </defs>
               <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
               <XAxis dataKey="date" tick={{ fontSize: 11 }} className="text-muted-foreground" />
-              {/* Left axis: cases + recovered */}
               <YAxis
                 yAxisId="left"
                 tick={{ fontSize: 11 }}
                 className="text-muted-foreground"
               />
-              {/* Right axis: deaths (separate scale so the line is visible) */}
               <YAxis
                 yAxisId="right"
                 orientation="right"
@@ -203,20 +203,22 @@ export default function Overview() {
         </CardContent>
       </Card>
 
-      {/* Geo map — full width below chart */}
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-base">Regional Distribution</CardTitle>
+          <CardTitle className="font-['Merriweather',serif] text-base font-bold text-secondary dark:text-white">
+            Regional distribution
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <GeoMap />
         </CardContent>
       </Card>
 
-      {/* Disease summary table */}
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-base">Disease Summary</CardTitle>
+          <CardTitle className="font-['Merriweather',serif] text-base font-bold text-secondary dark:text-white">
+            Disease summary
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="mt-2">

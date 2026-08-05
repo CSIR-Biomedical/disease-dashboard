@@ -237,41 +237,38 @@ export default function DiseaseDetail() {
     <div className="space-y-6">
 
       {/* ── Page Header Section ────────────────────────────────────────── */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-        {/* Title Block */}
+      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
         <div className="flex items-center gap-3.5">
-          <div className="p-2.5 bg-red-50 dark:bg-slate-900 rounded-xl border border-red-100 dark:border-slate-800">
+          <div className="p-2.5 bg-secondary/5 dark:bg-slate-900 rounded-sm border border-secondary/15 dark:border-slate-800">
             {renderDiseaseIcon(disease.id)}
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="font-['Merriweather',serif] text-2xl font-bold text-secondary dark:text-white leading-tight">
                 {disease.name}
               </h2>
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 uppercase">
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-sm bg-[#f7f6f4] dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 uppercase tracking-wider">
                 {disease.category}
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-1">
-              Disease Intelligence Dashboard <span className="opacity-40">•</span> <span className="text-slate-600 dark:text-slate-400 font-semibold">{filterLabel}</span>
+              Disease intelligence <span className="text-slate-300">·</span>{" "}
+              <span className="text-secondary dark:text-slate-400 font-semibold">{filterLabel}</span>
             </p>
           </div>
         </div>
 
-        {/* Action Controls & Risk Pill */}
         <div className="flex items-center flex-wrap gap-2.5">
-          {/* Outbreak Risk Badge */}
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 text-xs font-bold border border-red-100 dark:border-red-900/50">
-            <AlertTriangle size={14} className="animate-bounce" />
-            <span>Outbreak Risk: {disease.alertStatus === "High Alert" ? "HIGH" : disease.alertStatus === "Active" ? "MEDIUM" : "MONITORING"}</span>
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-red-50 dark:bg-red-950/20 text-red-700 dark:text-red-400 text-xs font-semibold border border-red-100 dark:border-red-900/50">
+            <AlertTriangle size={14} />
+            <span>Outbreak risk: {disease.alertStatus === "High Alert" ? "HIGH" : disease.alertStatus === "Active" ? "MEDIUM" : "MONITORING"}</span>
           </div>
 
-          {/* Filter Dropdowns */}
           <div className="flex items-center gap-2 flex-wrap">
             <select
               value={region}
               onChange={e => setRegion(e.target.value)}
-              className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-medium cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 outline-none"
+              className="px-3 py-1.5 rounded-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-medium cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 outline-none"
             >
               {regionsList.map(r => (
                 <option key={r} value={r}>{r}</option>
@@ -281,7 +278,7 @@ export default function DiseaseDetail() {
             <select
               value={district}
               onChange={e => setDistrict(e.target.value)}
-              className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-medium cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 outline-none"
+              className="px-3 py-1.5 rounded-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-medium cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 outline-none"
             >
               {districtsList.map(d => (
                 <option key={d} value={d}>{d}</option>
@@ -291,7 +288,7 @@ export default function DiseaseDetail() {
             <select
               value={timePeriod}
               onChange={e => setTimePeriod(e.target.value)}
-              className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-medium cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 outline-none"
+              className="px-3 py-1.5 rounded-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-medium cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 outline-none"
             >
               {timePeriods.map(p => (
                 <option key={p} value={p}>{p}</option>
@@ -299,28 +296,27 @@ export default function DiseaseDetail() {
             </select>
           </div>
 
-          <Button variant="outline" size="sm" className="flex items-center gap-1.5 h-8 text-xs border-slate-200 dark:border-slate-800">
+          <Button variant="outline" size="sm" className="flex items-center gap-1.5 h-8 text-xs border-slate-200 dark:border-slate-800 rounded-sm shadow-none">
             <Share2 size={13} />
             <span>Share</span>
           </Button>
 
-          <Button variant="default" size="sm" className="flex items-center gap-1.5 h-8 text-xs bg-blue-600 hover:bg-blue-700 text-white">
+          <Button variant="default" size="sm" className="flex items-center gap-1.5 h-8 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded-sm shadow-none">
             <Download size={13} />
             <span>Download Report</span>
           </Button>
         </div>
       </div>
 
-      {/* ── Tabs Implementation ────────────────────────────────────────── */}
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="w-full justify-start overflow-x-auto flex-nowrap rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1 mb-6">
-          <TabsTrigger value="overview" className="rounded-md">Overview</TabsTrigger>
-          <TabsTrigger value="outbreaks" className="rounded-md">Outbreaks</TabsTrigger>
-          <TabsTrigger value="geography" className="rounded-md">Geography</TabsTrigger>
-          <TabsTrigger value="demographics" className="rounded-md">Demographics</TabsTrigger>
-          <TabsTrigger value="trends" className="rounded-md">Trends & Forecast</TabsTrigger>
-          <TabsTrigger value="interventions" className="rounded-md">Interventions</TabsTrigger>
-          <TabsTrigger value="papers" className="rounded-md">Related Papers</TabsTrigger>
+        <TabsList className="w-full justify-start overflow-x-auto flex-nowrap rounded-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1 mb-6">
+          <TabsTrigger value="overview" className="rounded-sm">Overview</TabsTrigger>
+          <TabsTrigger value="outbreaks" className="rounded-sm">Outbreaks</TabsTrigger>
+          <TabsTrigger value="geography" className="rounded-sm">Geography</TabsTrigger>
+          <TabsTrigger value="demographics" className="rounded-sm">Demographics</TabsTrigger>
+          <TabsTrigger value="trends" className="rounded-sm">Trends & Forecast</TabsTrigger>
+          <TabsTrigger value="interventions" className="rounded-sm">Interventions</TabsTrigger>
+          <TabsTrigger value="papers" className="rounded-sm">Related Papers</TabsTrigger>
         </TabsList>
 
         {/* ── OVERVIEW TAB ─────────────────────────────────────────────── */}

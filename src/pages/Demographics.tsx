@@ -32,27 +32,30 @@ export default function Demographics() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-start justify-between flex-wrap gap-3">
+      <div className="flex items-end justify-between flex-wrap gap-3">
         <div>
-          <h2 className="text-xl font-bold text-foreground">Demographics</h2>
-          {/* Subtitle shows active filter (fixes DM-5) */}
-          <p className="text-sm text-muted-foreground mt-0.5">
+          <p className="text-[10px] font-semibold tracking-[0.16em] uppercase text-slate-500 mb-2">
+            Population
+          </p>
+          <h2 className="font-['Merriweather',serif] text-xl md:text-2xl font-bold text-secondary dark:text-white">
+            Demographics
+          </h2>
+          <p className="text-sm text-slate-500 mt-1">
             {isNCD ? "NCD patient" : "Case"} demographics by age, sex &amp; risk group{subtitleSuffix}
           </p>
         </div>
 
-        {/* Disease filter pills — scoped to active disease type */}
         <div className="flex flex-wrap gap-1.5 items-center">
-          <span className="text-xs text-muted-foreground mr-1">Filter:</span>
+          <span className="text-xs text-slate-500 mr-1">Filter:</span>
           <button
             onClick={() => setSelectedId(undefined)}
-            className={`text-xs px-2.5 py-1 rounded-full transition-colors border ${!activeId ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:bg-accent"}`}
+            className={`text-xs px-2.5 py-1 rounded-sm transition-colors border ${!activeId ? "bg-secondary text-white border-secondary" : "border-slate-200 text-slate-500 hover:bg-slate-50"}`}
           >All</button>
           {diseases.map(d => (
             <button
               key={d.id}
               onClick={() => setSelectedId(d.id)}
-              className={`text-xs px-2.5 py-1 rounded-full transition-colors border ${activeId === d.id ? "text-white border-transparent" : "border-border text-muted-foreground hover:bg-accent"}`}
+              className={`text-xs px-2.5 py-1 rounded-sm transition-colors border ${activeId === d.id ? "text-white border-transparent" : "border-slate-200 text-slate-500 hover:bg-slate-50"}`}
               style={activeId === d.id ? { backgroundColor: d.color } : {}}
             >{d.name}</button>
           ))}
@@ -63,14 +66,13 @@ export default function Demographics() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Sex donut */}
         <Card>
-          <CardHeader className="pb-2"><CardTitle className="text-base">Sex Distribution</CardTitle></CardHeader>
+          <CardHeader className="pb-2"><CardTitle className="font-['Merriweather',serif] text-base font-bold text-secondary dark:text-white">Sex distribution</CardTitle></CardHeader>
           <CardContent className="flex flex-col items-center">
             <ResponsiveContainer width="100%" height={180}>
               <PieChart>
                 <Pie
                   data={[{ name: "Male", value: sex.male }, { name: "Female", value: sex.female }]}
                   cx="50%" cy="50%" innerRadius={45} outerRadius={72} paddingAngle={4} dataKey="value"
-                  // Removed label prop to avoid overlap with legend (fixes DM-4)
                 >
                   <Cell fill="#3b82f6" />
                   <Cell fill="#ec4899" />
@@ -85,9 +87,8 @@ export default function Demographics() {
           </CardContent>
         </Card>
 
-        {/* Risk groups — fixed label truncation (fixes DM-1) */}
         <Card className="lg:col-span-2">
-          <CardHeader className="pb-2"><CardTitle className="text-base">Vulnerable Populations</CardTitle></CardHeader>
+          <CardHeader className="pb-2"><CardTitle className="font-['Merriweather',serif] text-base font-bold text-secondary dark:text-white">Vulnerable populations</CardTitle></CardHeader>
           <CardContent>
             <div className="space-y-3">
               {riskData.map((r, i) => (
@@ -110,7 +111,7 @@ export default function Demographics() {
 
       {/* Age pyramid — kept as primary age/sex view */}
       <Card>
-        <CardHeader className="pb-2"><CardTitle className="text-base">Age Pyramid</CardTitle></CardHeader>
+        <CardHeader className="pb-2"><CardTitle className="font-['Merriweather',serif] text-base font-bold text-secondary dark:text-white">Age pyramid</CardTitle></CardHeader>
         <CardContent>
           <p className="text-xs text-muted-foreground mb-2 text-center">← Male &nbsp;|&nbsp; Female →</p>
           <ResponsiveContainer width="100%" height={300}>
@@ -130,9 +131,8 @@ export default function Demographics() {
         </CardContent>
       </Card>
 
-      {/* Cases by age group — absolute count, grouped bar */}
       <Card>
-        <CardHeader className="pb-2"><CardTitle className="text-base">Cases by Age Group — Male vs Female</CardTitle></CardHeader>
+        <CardHeader className="pb-2"><CardTitle className="font-['Merriweather',serif] text-base font-bold text-secondary dark:text-white">Cases by age group — male vs female</CardTitle></CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={ageData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>

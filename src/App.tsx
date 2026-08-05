@@ -8,6 +8,7 @@ import Demographics from "@/pages/Demographics"
 import ResearcherDetail from "@/pages/ResearcherDetail"
 import Researchers from "@/pages/Researchers"
 import About from "@/pages/About"
+import Research from "@/pages/Research"
 import Publications from "@/pages/Publications"
 import PublicationDetail from "@/pages/PublicationDetail"
 import LandingPage from "@/pages/LandingPage"
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="/" element={<LandingPage />} />
             <Route element={<ProfilesLayout />}>
               <Route path="/about" element={<About />} />
+              <Route path="/research" element={<Research />} />
               <Route path="/publications" element={<Publications />} />
               <Route path="/publication" element={<PublicationDetail />} />
               <Route path="/researchers" element={<Researchers />} />

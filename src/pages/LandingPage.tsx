@@ -1,5 +1,4 @@
-import { useEffect } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { RESEARCHERS } from "@/data/researchers"
 
@@ -15,18 +14,9 @@ import ImagePlaceholder from "@/components/ImagePlaceholder"
 
 export default function LandingPage() {
   const navigate = useNavigate()
-  const location = useLocation()
-
-  useEffect(() => {
-    if (location.hash !== "#research") return
-    const t = window.setTimeout(() => {
-      document.getElementById("research")?.scrollIntoView({ behavior: "smooth" })
-    }, 80)
-    return () => window.clearTimeout(t)
-  }, [location.hash])
 
   return (
-    <div className="min-h-screen bg-[#faf9fc] text-slate-900 font-sans selection:bg-primary selection:text-white">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-primary selection:text-white">
       <SiteHeader fixed />
 
       <HeroSection />
@@ -36,32 +26,35 @@ export default function LandingPage() {
       <PublicHealthImpact />
       <LatestNews />
 
-      <section id="profiles" className="py-24 bg-white border-t border-slate-100">
+      <section id="profiles" className="py-20 md:py-24 bg-[#f7f6f4] border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-end mb-12">
+          <div className="flex justify-between items-end mb-12 gap-6">
             <div>
+              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-slate-500 mb-4">
+                People
+              </p>
               <h2 className="font-['Merriweather',serif] text-3xl md:text-4xl font-bold text-secondary mb-4">
-                Featured Researchers
+                Featured researchers
               </h2>
-              <div className="w-20 h-1 bg-primary mb-4" />
+              <div className="w-16 h-0.5 bg-primary" />
             </div>
             <Button
               variant="outline"
-              className="hidden md:flex border-slate-200"
+              className="hidden md:flex border-secondary/25 text-secondary rounded-sm shadow-none hover:bg-secondary hover:text-white"
               onClick={() => navigate("/researchers")}
             >
-              View Full Directory
+              View full directory
             </Button>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             {RESEARCHERS.slice(0, 3).map((researcher) => (
               <div
                 key={researcher.id}
                 className="group cursor-pointer"
                 onClick={() => navigate(`/researcher?id=${researcher.id}`)}
               >
-                <div className="overflow-hidden rounded-md mb-4 bg-slate-100 aspect-[4/5]">
+                <div className="overflow-hidden mb-4 bg-slate-200 aspect-[4/5]">
                   <ImagePlaceholder
                     label="Photo"
                     className="bg-slate-200 group-hover:bg-slate-300 transition-colors"
@@ -70,7 +63,7 @@ export default function LandingPage() {
                 <h4 className="font-['Merriweather',serif] font-bold text-lg text-secondary group-hover:text-primary transition-colors">
                   {researcher.name}
                 </h4>
-                <p className="text-sm text-slate-500 font-medium">{researcher.role}</p>
+                <p className="text-sm text-slate-500 font-medium mt-1">{researcher.role}</p>
                 <p className="text-xs text-slate-400 mt-0.5">{researcher.department}</p>
               </div>
             ))}
@@ -78,10 +71,10 @@ export default function LandingPage() {
 
           <Button
             variant="outline"
-            className="w-full mt-8 md:hidden border-slate-200"
+            className="w-full mt-10 md:hidden border-secondary/25 text-secondary rounded-sm shadow-none"
             onClick={() => navigate("/researchers")}
           >
-            View Full Directory
+            View full directory
           </Button>
         </div>
       </section>
