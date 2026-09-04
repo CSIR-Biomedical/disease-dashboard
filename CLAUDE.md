@@ -1,4 +1,11 @@
 # CLAUDE.md Rules
+
+## Design system
+- For **public site UI** (landing, about, research, publications, researchers, header/footer): follow `DESIGN.md`
+- Keep CSIR brand tokens (magenta `#E4007B`, navy `#282161` / `#1a153a`, Merriweather)
+- Do **not** restyle `/dashboard` to editorial monochrome — it keeps the brighter ops palette
+- Upstream WIRED reference lives in `wired/DESIGN.md` (do not edit)
+
 ## Workflow Orchestration
 ### 1. Plan Mode Default
 - Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)

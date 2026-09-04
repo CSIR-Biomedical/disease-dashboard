@@ -25,7 +25,7 @@ export default function PublicHealthImpact() {
               <Button
                 size="lg"
                 onClick={() => navigate("/publications")}
-                className="bg-white text-secondary hover:bg-slate-100 font-semibold px-8 h-12 rounded-sm shadow-none text-base"
+                className="bg-white text-secondary hover:bg-slate-100 font-semibold px-8 h-12 rounded-none shadow-none text-base"
               >
                 Read impact publications
               </Button>
@@ -33,7 +33,7 @@ export default function PublicHealthImpact() {
                 size="lg"
                 variant="ghost"
                 onClick={() => navigate("/about")}
-                className="text-white/80 hover:text-white hover:bg-white/10 font-medium px-4 h-12 rounded-sm text-base underline-offset-4 hover:underline"
+                className="text-white/80 hover:text-white hover:bg-white/10 font-medium px-4 h-12 rounded-none text-base underline-offset-4 hover:underline"
               >
                 About the Center
               </Button>

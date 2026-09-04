@@ -1,7 +1,7 @@
 import { NavLink, Outlet, useLocation, useNavigate, useSearchParams } from "react-router-dom"
 import {
   LayoutDashboard, Sun, Moon, ChevronLeft, ChevronRight,
-  ShieldAlert, HeartPulse, ChevronDown, Info, Users, Menu, X, ArrowLeft,
+  ShieldAlert, HeartPulse, ChevronDown, Info, Menu, X, ArrowLeft,
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { useTheme } from "@/hooks/useTheme"
@@ -29,7 +29,7 @@ const LG_QUERY = "(min-width: 1024px)"
 
 const navItem = (active: boolean) =>
   cn(
-    "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
+    "w-full flex flex-row flex-nowrap items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
     active
       ? "bg-[#E4007B] text-white font-medium shadow-sm"
       : "text-slate-400 hover:text-white hover:bg-slate-800/50"
@@ -177,41 +177,21 @@ export default function AppLayout() {
 
           <nav className="flex-1 py-4 overflow-y-auto px-3 space-y-5">
             <div className="space-y-1">
-              {showLabels && (
+              {/* {showLabels && (
                 <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-[0.16em] pl-2 block mb-2">
                   Platform
                 </span>
-              )}
+              )} */}
 
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <NavLink
-                    to="/dashboard"
-                    end
-                    className={() =>
-                      navItem(location.pathname === "/dashboard" || location.pathname === "/dashboard/")
-                    }
-                  >
-                    <LayoutDashboard size={18} className="flex-shrink-0" />
-                    {showLabels && <span>Overview</span>}
-                  </NavLink>
-                </TooltipTrigger>
-                {!showLabels && <TooltipContent side="right">Overview</TooltipContent>}
-              </Tooltip>
-
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    type="button"
-                    onClick={() => navigate("/researchers")}
-                    className={cn("w-full", navItem(false))}
-                  >
-                    <Users size={18} className="flex-shrink-0" />
-                    {showLabels && <span>Researcher Profiles</span>}
-                  </button>
-                </TooltipTrigger>
-                {!showLabels && <TooltipContent side="right">Researcher Profiles</TooltipContent>}
-              </Tooltip>
+              <NavLink
+                to="/dashboard"
+                end
+                className={({ isActive }) => navItem(isActive)}
+                title={!showLabels ? "Overview" : undefined}
+              >
+                <LayoutDashboard size={18} className="flex-shrink-0" />
+                {showLabels && <span className="truncate">Overview</span>}
+              </NavLink>
             </div>
 
             <div className="space-y-1">

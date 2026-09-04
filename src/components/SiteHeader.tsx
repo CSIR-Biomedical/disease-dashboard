@@ -20,6 +20,7 @@ const mobileLinkClass = ({ isActive }: { isActive: boolean }) =>
 
 const RESEARCH_LINKS = [
   { to: "/research", label: "Research Areas" },
+  { to: "/publications", label: "Publications" },
   { to: "/researchers", label: "Researcher Profiles" },
 ] as const
 
@@ -37,7 +38,12 @@ export default function SiteHeader({ fixed = false }: SiteHeaderProps) {
 
   const researchActive =
     location.pathname === "/research" ||
+    location.pathname === "/publications" ||
+    location.pathname.startsWith("/publication") ||
     location.pathname.startsWith("/researcher")
+
+  const articlesActive =
+    location.pathname === "/articles" || location.pathname.startsWith("/article")
 
   useEffect(() => {
     setMenuOpen(false)
@@ -79,7 +85,7 @@ export default function SiteHeader({ fixed = false }: SiteHeaderProps) {
   return (
     <div className={cn("top-0 w-full z-50", fixed ? "fixed" : "sticky")}>
       <ConstructionBanner />
-      <nav className="w-full bg-white border-b border-slate-200">
+      <nav className="w-full bg-white border-b border-[#e0e0e0]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-3 h-[4.25rem] md:h-20">
             <button
@@ -134,7 +140,7 @@ export default function SiteHeader({ fixed = false }: SiteHeaderProps) {
                 {researchOpen && (
                   <div
                     role="menu"
-                    className="absolute left-0 top-full mt-3 min-w-[220px] border border-slate-200 bg-white py-1 shadow-md z-50"
+                    className="absolute left-0 top-full mt-3 min-w-[220px] border border-[#e0e0e0] bg-white py-1 z-50"
                   >
                     {RESEARCH_LINKS.map((item) => (
                       <NavLink
@@ -147,9 +153,11 @@ export default function SiteHeader({ fixed = false }: SiteHeaderProps) {
                             "block px-4 py-2.5 text-sm transition-colors",
                             isActive ||
                               (item.to === "/researchers" &&
-                                location.pathname.startsWith("/researcher"))
+                                location.pathname.startsWith("/researcher")) ||
+                              (item.to === "/publications" &&
+                                location.pathname.startsWith("/publication"))
                               ? "text-primary bg-primary/5 font-medium"
-                              : "text-slate-600 hover:text-secondary hover:bg-[#f7f6f4]"
+                              : "text-slate-600 hover:text-secondary hover:bg-[#f5f5f5]"
                           )
                         }
                       >
@@ -160,12 +168,15 @@ export default function SiteHeader({ fixed = false }: SiteHeaderProps) {
                 )}
               </div>
 
-              <NavLink to="/publications" className={linkClass}>
-                Publications
+              <NavLink
+                to="/articles"
+                className={() => linkClass({ isActive: articlesActive })}
+              >
+                Articles
               </NavLink>
               <Button
                 onClick={() => navigate("/dashboard")}
-                className="bg-primary hover:bg-[#c40069] text-white rounded-sm px-4 h-10 text-sm font-semibold shadow-none"
+                className="bg-primary hover:bg-[#c40069] text-white rounded-none px-4 h-10 text-sm font-semibold shadow-none"
               >
                 Access Dashboard
               </Button>
@@ -229,7 +240,9 @@ export default function SiteHeader({ fixed = false }: SiteHeaderProps) {
                             "block py-2.5 text-sm font-medium",
                             isActive ||
                               (item.to === "/researchers" &&
-                                location.pathname.startsWith("/researcher"))
+                                location.pathname.startsWith("/researcher")) ||
+                              (item.to === "/publications" &&
+                                location.pathname.startsWith("/publication"))
                               ? "text-primary"
                               : "text-slate-600"
                           )
@@ -242,8 +255,12 @@ export default function SiteHeader({ fixed = false }: SiteHeaderProps) {
                 )}
               </div>
 
-              <NavLink to="/publications" className={mobileLinkClass} onClick={() => setMenuOpen(false)}>
-                Publications
+              <NavLink
+                to="/articles"
+                className={() => mobileLinkClass({ isActive: articlesActive })}
+                onClick={() => setMenuOpen(false)}
+              >
+                Articles
               </NavLink>
               <div className="py-4">
                 <Button
@@ -251,7 +268,7 @@ export default function SiteHeader({ fixed = false }: SiteHeaderProps) {
                     setMenuOpen(false)
                     navigate("/dashboard")
                   }}
-                  className="w-full bg-primary hover:bg-[#c40069] text-white rounded-sm h-11 font-semibold shadow-none"
+                  className="w-full bg-primary hover:bg-[#c40069] text-white rounded-none h-11 font-semibold shadow-none"
                 >
                   Access Dashboard
                 </Button>

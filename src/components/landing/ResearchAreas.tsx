@@ -35,7 +35,7 @@ export default function ResearchAreas() {
   }, [])
 
   return (
-    <section id="research" className="py-20 md:py-24 bg-[#f7f6f4]">
+    <section id="research" className="py-20 md:py-24 bg-[#f5f5f5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
           <div className="max-w-2xl">
@@ -63,7 +63,7 @@ export default function ResearchAreas() {
               onClick={() => scrollByCard("prev")}
               disabled={!canScrollLeft}
               aria-label="Previous research area"
-              className="w-11 h-11 rounded-sm border border-secondary/25 text-secondary flex items-center justify-center hover:bg-secondary hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none"
+              className="w-11 h-11 rounded-none border border-secondary/25 text-secondary flex items-center justify-center hover:bg-secondary hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -72,7 +72,7 @@ export default function ResearchAreas() {
               onClick={() => scrollByCard("next")}
               disabled={!canScrollRight}
               aria-label="Next research area"
-              className="w-11 h-11 rounded-sm border border-secondary/25 text-secondary flex items-center justify-center hover:bg-secondary hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none"
+              className="w-11 h-11 rounded-none border border-secondary/25 text-secondary flex items-center justify-center hover:bg-secondary hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -101,7 +101,6 @@ export default function ResearchAreas() {
                 title={area.title}
                 description={area.description}
                 imageSrc={area.imageSrc}
-                href={`/research#${area.id}`}
               />
             </div>
           ))}

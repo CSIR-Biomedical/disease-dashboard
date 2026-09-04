@@ -5,6 +5,7 @@ const QUICK_LINKS = [
   { label: "About the Center", to: "/about" },
   { label: "Research Areas", to: "/research" },
   { label: "Publications", to: "/publications" },
+  { label: "Articles", to: "/articles" },
   { label: "Researcher Profiles", to: "/researchers" },
 ]
 
@@ -83,11 +84,11 @@ export default function SiteFooter() {
           <Link to="/about" className="hover:text-white transition-colors">
             About
           </Link>
+          <Link to="/articles" className="hover:text-white transition-colors">
+            Articles
+          </Link>
           <Link to="/publications" className="hover:text-white transition-colors">
             Publications
-          </Link>
-          <Link to="/researchers" className="hover:text-white transition-colors">
-            Profiles
           </Link>
         </div>
       </div>

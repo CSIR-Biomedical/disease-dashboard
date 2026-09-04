@@ -26,7 +26,7 @@ export default function LandingPage() {
       <PublicHealthImpact />
       <LatestNews />
 
-      <section id="profiles" className="py-20 md:py-24 bg-[#f7f6f4] border-t border-slate-100">
+      <section id="profiles" className="py-20 md:py-24 bg-[#f5f5f5] border-t border-[#e0e0e0]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-end mb-12 gap-6">
             <div>
@@ -40,7 +40,7 @@ export default function LandingPage() {
             </div>
             <Button
               variant="outline"
-              className="hidden md:flex border-secondary/25 text-secondary rounded-sm shadow-none hover:bg-secondary hover:text-white"
+              className="hidden md:flex border-secondary/25 text-secondary rounded-none shadow-none hover:bg-secondary hover:text-white"
               onClick={() => navigate("/researchers")}
             >
               View full directory
@@ -71,7 +71,7 @@ export default function LandingPage() {
 
           <Button
             variant="outline"
-            className="w-full mt-10 md:hidden border-secondary/25 text-secondary rounded-sm shadow-none"
+            className="w-full mt-10 md:hidden border-secondary/25 text-secondary rounded-none shadow-none"
             onClick={() => navigate("/researchers")}
           >
             View full directory

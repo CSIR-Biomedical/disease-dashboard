@@ -29,7 +29,7 @@ export default function HeroSection() {
           <Button
             size="lg"
             onClick={() => navigate("/research")}
-            className="bg-white text-secondary hover:bg-slate-100 font-semibold px-8 h-12 rounded-sm shadow-none text-base"
+            className="bg-white text-secondary hover:bg-slate-100 font-semibold px-8 h-12 rounded-none shadow-none text-base"
           >
             Explore our research
           </Button>
@@ -37,7 +37,7 @@ export default function HeroSection() {
             size="lg"
             variant="outline"
             onClick={() => navigate("/publications")}
-            className="border-white/40 text-white hover:bg-white/10 hover:text-white font-semibold px-8 h-12 rounded-sm bg-transparent text-base"
+            className="border-white/40 text-white hover:bg-white/10 hover:text-white font-semibold px-8 h-12 rounded-none bg-transparent text-base"
           >
             Publications
           </Button>
@@ -45,7 +45,7 @@ export default function HeroSection() {
             size="lg"
             variant="ghost"
             onClick={() => navigate("/dashboard")}
-            className="text-white/80 hover:text-white hover:bg-white/10 font-medium px-4 h-12 rounded-sm text-base underline-offset-4 hover:underline"
+            className="text-white/80 hover:text-white hover:bg-white/10 font-medium px-4 h-12 rounded-none text-base underline-offset-4 hover:underline"
           >
             Data platform
           </Button>
