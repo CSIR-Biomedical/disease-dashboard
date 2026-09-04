@@ -11,6 +11,7 @@ import LatestNews from "@/components/landing/LatestNews"
 import SiteFooter from "@/components/SiteFooter"
 import SiteHeader from "@/components/SiteHeader"
 import ImagePlaceholder from "@/components/ImagePlaceholder"
+import ScrollToTopFab from "@/components/ScrollToTopFab"
 
 export default function LandingPage() {
   const navigate = useNavigate()
@@ -80,6 +81,7 @@ export default function LandingPage() {
       </section>
 
       <SiteFooter />
+      <ScrollToTopFab />
     </div>
   )
 }

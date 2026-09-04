@@ -174,6 +174,9 @@ export default function SiteHeader({ fixed = false }: SiteHeaderProps) {
               >
                 Articles
               </NavLink>
+              <NavLink to="/contact" className={linkClass}>
+                Contact
+              </NavLink>
               <Button
                 onClick={() => navigate("/dashboard")}
                 className="bg-primary hover:bg-[#c40069] text-white rounded-none px-4 h-10 text-sm font-semibold shadow-none"
@@ -261,6 +264,9 @@ export default function SiteHeader({ fixed = false }: SiteHeaderProps) {
                 onClick={() => setMenuOpen(false)}
               >
                 Articles
+              </NavLink>
+              <NavLink to="/contact" className={mobileLinkClass} onClick={() => setMenuOpen(false)}>
+                Contact
               </NavLink>
               <div className="py-4">
                 <Button

@@ -13,6 +13,7 @@ import Publications from "@/pages/Publications"
 import PublicationDetail from "@/pages/PublicationDetail"
 import Articles from "@/pages/Articles"
 import ArticleDetail from "@/pages/ArticleDetail"
+import Contact from "@/pages/Contact"
 import LandingPage from "@/pages/LandingPage"
 
 import { DiseaseTypeProvider } from "@/context/DiseaseTypeContext"
@@ -33,6 +34,7 @@ export default function App() {
               <Route path="/publication" element={<PublicationDetail />} />
               <Route path="/articles" element={<Articles />} />
               <Route path="/article" element={<ArticleDetail />} />
+              <Route path="/contact" element={<Contact />} />
               <Route path="/researchers" element={<Researchers />} />
               <Route path="/researcher" element={<ResearcherDetail />} />
             </Route>

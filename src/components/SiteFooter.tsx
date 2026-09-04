@@ -6,6 +6,7 @@ const QUICK_LINKS = [
   { label: "Research Areas", to: "/research" },
   { label: "Publications", to: "/publications" },
   { label: "Articles", to: "/articles" },
+  { label: "Contact", to: "/contact" },
   { label: "Researcher Profiles", to: "/researchers" },
 ]
 
@@ -86,6 +87,9 @@ export default function SiteFooter() {
           </Link>
           <Link to="/articles" className="hover:text-white transition-colors">
             Articles
+          </Link>
+          <Link to="/contact" className="hover:text-white transition-colors">
+            Contact
           </Link>
           <Link to="/publications" className="hover:text-white transition-colors">
             Publications

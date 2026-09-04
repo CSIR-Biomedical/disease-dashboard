@@ -61,3 +61,17 @@ export function getArticleById(id: string | null | undefined): Article | undefin
   if (!id) return undefined
   return ARTICLES.find((a) => a.id === id)
 }
+
+export function getAdjacentArticles(id: string) {
+  const index = ARTICLES.findIndex((a) => a.id === id)
+  if (index < 0) return { prev: undefined, next: undefined }
+  return {
+    prev: index > 0 ? ARTICLES[index - 1] : undefined,
+    next: index < ARTICLES.length - 1 ? ARTICLES[index + 1] : undefined,
+  }
+}
+
+export function getSuggestedArticles(id: string, limit = 2): Article[] {
+  return ARTICLES.filter((a) => a.id !== id).slice(0, limit)
+}
+

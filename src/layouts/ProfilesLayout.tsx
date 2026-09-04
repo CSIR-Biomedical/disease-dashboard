@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom"
 import SiteFooter from "@/components/SiteFooter"
 import SiteHeader from "@/components/SiteHeader"
+import ScrollToTopFab from "@/components/ScrollToTopFab"
 
 export default function ProfilesLayout() {
   return (
@@ -12,6 +13,7 @@ export default function ProfilesLayout() {
       </main>
 
       <SiteFooter />
+      <ScrollToTopFab />
     </div>
   )
 }

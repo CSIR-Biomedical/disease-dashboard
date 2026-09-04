@@ -12,6 +12,7 @@ import { useDiseaseType } from "@/context/DiseaseTypeContext"
 import { DISEASES, getDiseasesByType } from "@/data/diseases"
 import { GlobalSearch } from "@/components/GlobalSearch"
 import ConstructionBanner from "@/components/ConstructionBanner"
+import ScrollToTopFab from "@/components/ScrollToTopFab"
 
 import logoImg from "@/assets/logo.webp"
 
@@ -383,9 +384,13 @@ export default function AppLayout() {
             </div>
           </header>
 
-          <main className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-6 bg-[#f8fafc] dark:bg-slate-950">
+          <main
+            id="dashboard-main-scroll"
+            className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-6 bg-[#f8fafc] dark:bg-slate-950"
+          >
             <Outlet />
           </main>
+          <ScrollToTopFab containerId="dashboard-main-scroll" />
         </div>
       </div>
     </TooltipProvider>
